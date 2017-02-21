@@ -1,0 +1,58 @@
+In order to get this working, you must have php >= 5.5 and mysql installed with mod_php and php-mysqlnd.
+
+INSTALLATION:
+1) create database schema. below is an example of what the database should look like:
+	mysql> show tables;
+	+------------------+
+	| Tables_in_webdev |
+	+------------------+
+	| directories      |
+	| users            |
+	+------------------+
+	2 rows in set (0.00 sec)
+	
+	mysql> describe directories;
+	+---------------+--------------+------+-----+---------+-------+
+	| Field         | Type         | Null | Key | Default | Extra |
+	+---------------+--------------+------+-----+---------+-------+
+	| hostname      | varchar(256) | YES  |     | NULL    |       |
+	| username      | varchar(50)  | YES  |     | NULL    |       |
+	| passwd        | varchar(50)  | YES  |     | NULL    |       |
+	| systemname    | varchar(50)  | YES  |     | NULL    |       |
+	| directorypath | varchar(512) | YES  |     | NULL    |       |
+	| directoryid   | varchar(256) | YES  |     | NULL    |       |
+	+---------------+--------------+------+-----+---------+-------+
+	6 rows in set (0.01 sec)
+	
+	mysql> describe users;
+	+--------+--------------+------+-----+---------+-------+
+	| Field  | Type         | Null | Key | Default | Extra |
+	+--------+--------------+------+-----+---------+-------+
+	| name   | varchar(50)  | YES  |     | NULL    |       |
+	| passwd | varchar(256) | YES  |     | NULL    |       |
+	| type   | varchar(50)  | YES  |     | NULL    |       |
+	| cookie | varchar(256) | YES  |     | NULL    |       |
+	+--------+--------------+------+-----+---------+-------+
+	4 rows in set (0.00 sec)
+
+2) git clone this repo to the desired directory.
+3) redirect apache's root directory to point to the desired directory.
+4) create conf.php in project root. this should look like the file below:
+	<?php
+	        $dbhost = 'hostname';
+	        $dbuser = 'username';
+	        $dbpass = 'password';
+	        $dbbase = 'database';
+	
+	        $rootdir = '/var/www/webfs';
+	
+	        include 'lib/getoptopt.php';
+	        include 'lib/sql.php';
+	        include 'lib/users.php';
+	        include 'lib/directories.php';
+	        include 'lib/files.php';
+	?>
+	*/ i apologize for leaving the includes up to the conf file. this should be fixed in future versions and was a leftover of me running some tests on php not addressing globals properly. */
+
+5) run php scripts/users/createuser username password usertype
+6) visit it via a browser and start adding directories for it to host and users to access those directories.
