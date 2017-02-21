@@ -1,0 +1,18 @@
+body { font-family: Calibri, Verdana, Arial; }
+
+#title {
+	text-align: center;
+	color: silver;
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+hr {
+	border: 1px solid black;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+form {
+	text-align: center;
+}
